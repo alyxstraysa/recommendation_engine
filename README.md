@@ -5,5 +5,5 @@ trying different recommenders/heroku backend
 - [ ] remove duplicate usernames from user.txt
 - [ ] read recommender paper
 - [ ] install pytorch
-- [ ] format data for train testing with model
+- [x] format data for train testing with model
 - [ ] create a front end for the application
