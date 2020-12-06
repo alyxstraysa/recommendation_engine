@@ -7,7 +7,7 @@ for user in user_list:
     anime_list = r.json()
     anime_list = anime_list['anime']
 
-    with open("user.txt", "w") as f:
+    with open("data/user.txt", "w") as f:
         f.write(user, id_counter)
 
     with open("filename.txt", "w") as f:
