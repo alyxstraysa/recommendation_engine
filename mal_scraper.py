@@ -10,7 +10,7 @@ if __name__ == "__main__":
         tree = html.fromstring(page.content)
         names = tree.xpath('//td[@align="center"]/div/a/text()')
 
-        with open("user.txt", "a") as f:
+        with open("data/user.txt", "a") as f:
             for name in names:
                 f.write(name+ " " + '\n')
 
