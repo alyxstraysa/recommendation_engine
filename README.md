@@ -2,7 +2,7 @@
 trying different recommenders/heroku backend
 
 - [x] collect list of usernames from MAL
-- [ ] remove duplicate usernames from user.txt
+- [x] remove duplicate usernames from user.txt
 - [ ] read recommender paper
 - [ ] install pytorch
 - [x] format data for train testing with model
