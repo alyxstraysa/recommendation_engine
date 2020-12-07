@@ -42,7 +42,7 @@ if __name__ == "__main__":
                 f.write(anime_write)
 
             iterations += 1
-            if iterations == 100:
+            if iterations == 4000:
                 break
             #delay of one second for rate limiter
             time.sleep(1.0)
