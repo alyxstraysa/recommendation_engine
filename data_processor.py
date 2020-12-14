@@ -11,7 +11,7 @@ if __name__ == "__main__":
     anime_id_counter = 0
 
     anime_dict = {}
-    iterations = 0
+
     with open(DATA_FILE_PATH + 'user.txt', 'r') as file:
         next(file)
         for line in file.readlines():
@@ -41,9 +41,6 @@ if __name__ == "__main__":
                 anime_write = " ".join(anime_data) + '\n'
                 f.write(anime_write)
 
-            iterations += 1
-            if iterations == 100:
-                break
             #delay of one second for rate limiter
             time.sleep(1.0)
 
