@@ -75,9 +75,17 @@ WSGI_APPLICATION = 'anime_rec_website.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd2a6ovipdc1kil',
+        'USER': 'syaiorwmvigslx',
+        'PASSWORD': '260b5b87a450bcbeb6d122e875c6d9e83fba60e670a56964d89d8a4d2c492f88',
+        'HOST': 'ec2-54-205-248-255.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
