@@ -156,3 +156,29 @@ def Test(dataset, Recmodel, epoch, w=None, multicore=0):
             pool.close()
         print(results)
         return results
+
+def Infer(dataset, Recmodel, userID) -> np.array: 
+    dataset: utils.BasicDataset
+    testDict: dict = dataset.testDict
+    Recmodel: model.LightGCN
+    # eval mode with no dropout
+    Recmodel = Recmodel.eval()
+    max_K = max(world.topks)
+    with torch.no_grad():
+        users = [userID]
+        rating_list = []
+        allPos = dataset.getUserPosItems(users)
+        batch_users_gpu = torch.Tensor(users).long()
+        batch_users_gpu = batch_users_gpu.to(world.device)
+
+        rating = Recmodel.getUsersRating(batch_users_gpu)
+        exclude_index = []
+        exclude_items = []
+        for range_i, items in enumerate(allPos):
+            exclude_index.extend([range_i] * len(items))
+            exclude_items.extend(items)
+        rating[exclude_index, exclude_items] = -(1<<10)
+        _, rating_K = torch.topk(rating, k=max_K)
+        rating = rating.cpu().numpy()
+        print(results)
+        return rating_K
