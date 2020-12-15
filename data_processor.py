@@ -6,17 +6,22 @@ DATA_FILE_PATH = './data/mal_data/'
 if __name__ == "__main__":
     #read all users into a list called user list
     user_list = []
-
-    id_counter = 0
     anime_id_counter = 0
 
     anime_dict = {}
 
     with open(DATA_FILE_PATH + 'user.txt', 'r') as file:
         next(file)
+        
+        counter = 0
+
         for line in file.readlines():
+            if counter == 5000:
+                break
+
             lineModified = line.split(" ")
             user, userID = lineModified[0].strip('\n'), lineModified[1].strip('\n')
+            print("Writing user: {user} with userID: {userID}".format(user=user, userID=userID))
             r = requests.get('https://api.jikan.moe/v3/user/{user}/animelist/all'.format(user=user.strip()))
             anime_json = r.json()
             try:
@@ -41,8 +46,10 @@ if __name__ == "__main__":
                 anime_write = " ".join(anime_data) + '\n'
                 f.write(anime_write)
 
-            #delay of one second for rate limiter
-            time.sleep(1.0)
+            #delay of 4 seconds for rate limiter
+            print("Finished writing!")
+            time.sleep(4.0)
+            counter += 1
 
 
     #Writing to anime.txt
