@@ -58,3 +58,8 @@ if __name__ == "__main__":
         for malAnimeID, remapID in anime_dict.items():
             file.write(str(malAnimeID) + " " + str(remapID) + '\n')
 
+    with open(DATA_FILE_PATH + "anime_mapping.txt", "a") as file:
+        file.write("remap_id, item_id" + '\n')
+        for malAnimeID, remapID in anime_dict.items():
+            file.write(str(remapID) + " " + str(malAnimeID) + '\n')
+
