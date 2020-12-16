@@ -37,7 +37,7 @@ else:
     w = None
     world.cprint("not enable tensorflowboard")
 
-if world.config['model'] == 'train':
+if world.config['mode'] == 'train':
     try:
         for epoch in range(world.TRAIN_epochs):
             start = time.time()
@@ -49,7 +49,7 @@ if world.config['model'] == 'train':
             torch.save(Recmodel.state_dict(), weight_file)
     finally:
         pass
-elif world.config['model'] == 'infer':
+elif world.config['mode'] == 'infer':
     print("Inferring on predict:")
     Procedure.Infer(dataset, Recmodel, 0)
 else:
