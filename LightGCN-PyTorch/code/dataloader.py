@@ -85,7 +85,7 @@ class Loader(BasicDataset):
         self.m_item = 0
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
-        predict_file = path + 'predict.txt'
+        predict_file = path + '/predict.txt'
 
         self.path = path
 

@@ -159,7 +159,6 @@ def Test(dataset, Recmodel, epoch, w=None, multicore=0):
 
 def Infer(dataset, Recmodel, userID) -> np.array: 
     dataset: utils.BasicDataset
-    testDict: dict = dataset.predictDict
     Recmodel: model.LightGCN
     # eval mode with no dropout
     Recmodel = Recmodel.eval()

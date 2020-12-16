@@ -48,4 +48,4 @@ try:
         torch.save(Recmodel.state_dict(), weight_file)
     
     print("Inferring on predict:")
-    Procedure.Infer(dataset, Recmodel, epoch, w, world.config['multicore'])
+    Procedure.Infer(dataset, Recmodel, 0)
