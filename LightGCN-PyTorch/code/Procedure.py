@@ -159,13 +159,14 @@ def Test(dataset, Recmodel, epoch, w=None, multicore=0):
 
 def Infer(dataset, Recmodel, userID) -> np.array: 
     dataset: utils.BasicDataset
+    predictDict: dict = dataset.predictDict
     Recmodel: model.LightGCN
     # eval mode with no dropout
     Recmodel = Recmodel.eval()
     max_K = max(world.topks)
     with torch.no_grad():
         users = [userID]
-        allPos = dataset.getUserPosItems(users)
+        allPos = [predictDict[0]]
         batch_users_gpu = torch.Tensor(users).long()
         batch_users_gpu = batch_users_gpu.to(world.device)
 
