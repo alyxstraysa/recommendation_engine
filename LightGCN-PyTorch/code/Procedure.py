@@ -181,7 +181,7 @@ def Infer(dataset, Recmodel, userID) -> np.array:
         rating = rating.cpu().numpy()
         print(rating_K)
 
-       #anime dict
+        #anime dict
         anime_dict = {}
         with open("../data/anime/anime.txt") as f:
             next(f)
@@ -191,11 +191,6 @@ def Infer(dataset, Recmodel, userID) -> np.array:
                     anime, animeID = lineModified[0].strip('\n'), lineModified[1].strip('\n')
                     anime_dict[animeID] = anime
 
-        anime_predictions = []
-
-        for rating in rating_K[0].cpu():
-          anime_predictions.append(anime_dict[str(rating.cpu().numpy())])
-
-        print(anime_predictions)
+        anime_predictions = [anime_dict[str(rating)] for rating in rating_K]
 
         return anime_predictions
