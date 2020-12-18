@@ -6,7 +6,7 @@ with open('fulltrain.txt', 'r') as file:
     for line in file.readlines():
         lineModified = line.replace("\n", " ").strip().split(" ")
 
-        if len(lineModified) <= 3:
+        if len(lineModified) <= 10:
             print("No items found for user: {userid} or the number of items is too low!".format(userid=userid))
             continue
         else: 
