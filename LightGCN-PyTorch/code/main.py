@@ -51,6 +51,6 @@ if world.config['mode'] == 'train':
         pass
 elif world.config['mode'] == 'infer':
     print("Inferring on predict:")
-    Procedure.Infer(dataset, Recmodel, 0)
+    Procedure.Infer(dataset, Recmodel, epoch, w, world.config['multicore'])
 else:
     print("Invalid mode selected!")
