@@ -157,20 +157,26 @@ def Test(dataset, Recmodel, epoch, w=None, multicore=0):
         print(results)
         return results
 
-def Infer(dataset, Recmodel, userID) -> np.array: 
+def Infer(dataset, Recmodel, epoch, w=None, multicore=0):
     dataset: utils.BasicDataset
-    predictDict: dict = dataset.predictDict
+    testDict: dict = dataset.testDict
     Recmodel: model.LightGCN
     # eval mode with no dropout
     Recmodel = Recmodel.eval()
     max_K = max(world.topks)
+
     with torch.no_grad():
-        users = [userID]
-        allPos = [predictDict[0]]
-        batch_users_gpu = torch.Tensor(users).long()
+        users = list(testDict.keys())
+        users_list = []
+        rating_list = []
+        groundTrue_list = []
+
+        allPos = dataset.getUserPosItems([5373])
+        batch_users_gpu = torch.Tensor([5373]).long()
         batch_users_gpu = batch_users_gpu.to(world.device)
 
-        rating = Recmodel.getUsersRating(batch_users_gpu)
+        rating = Recmodel.getUsersRating([5373])
+        #rating = rating.cpu()
         exclude_index = []
         exclude_items = []
         for range_i, items in enumerate(allPos):
@@ -179,18 +185,6 @@ def Infer(dataset, Recmodel, userID) -> np.array:
         rating[exclude_index, exclude_items] = -(1<<10)
         _, rating_K = torch.topk(rating, k=max_K)
         rating = rating.cpu().numpy()
-        print(rating_K)
+        print(rating)
 
-        #anime dict
-        anime_dict = {}
-        with open("../data/anime/anime.txt") as f:
-            next(f)
-
-            for line in f.readlines():
-                    lineModified = line.split(" ")
-                    anime, animeID = lineModified[0].strip('\n'), lineModified[1].strip('\n')
-                    anime_dict[animeID] = anime
-
-        anime_predictions = [anime_dict[str(rating)] for rating in rating_K]
-
-        return anime_predictions
+        return rating

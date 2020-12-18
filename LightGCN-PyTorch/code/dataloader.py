@@ -85,17 +85,13 @@ class Loader(BasicDataset):
         self.m_item = 0
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
-        predict_file = path + '/predict.txt'
-
         self.path = path
 
         trainUniqueUsers, trainItem, trainUser = [], [], []
         testUniqueUsers, testItem, testUser = [], [], []
-        predictUniqueUsers, predictItem, predictUser = [], [], []
 
         self.traindataSize = 0
         self.testDataSize = 0
-        self.predictDataSize = 0
 
         with open(train_file) as f:
             for l in f.readlines():
@@ -136,23 +132,6 @@ class Loader(BasicDataset):
         self.testUniqueUsers = np.array(testUniqueUsers)
         self.testUser = np.array(testUser)
         self.testItem = np.array(testItem)
-
-        with open(predict_file) as f:
-            for l in f.readlines():
-                if len(l) > 0:
-                    l = l.strip('\n').split(' ')
-                    if len(l) == 1:
-                        continue
-                    else:
-                        items = [int(i) for i in l[1:]]
-                        uid = int(l[0])
-                        predictUniqueUsers.append(uid)
-                        predictUser.extend([uid] * len(items))
-                        predictItem.extend(items)
-                        self.predictDataSize += len(items)
-        self.predictUniqueUsers = np.array(predictUniqueUsers)
-        self.predictUser = np.array(predictUser)
-        self.predictItem = np.array(predictItem)
         
         self.Graph = None
         print(f"{self.trainDataSize} interactions for training")
@@ -170,8 +149,6 @@ class Loader(BasicDataset):
         self._allPos = self.getUserPosItems(list(range(self.n_user)))
 
         self.__testDict = self.__build_test()
-        self.__predictDict = self.__build_predict()
-
         print(f"{world.dataset} is ready to go")
 
     @property
@@ -189,10 +166,6 @@ class Loader(BasicDataset):
     @property
     def testDict(self):
         return self.__testDict
-
-    @property
-    def predictDict(self):
-        return self.__predictDict
 
     @property
     def allPos(self):
@@ -270,20 +243,6 @@ class Loader(BasicDataset):
             else:
                 test_data[user] = [item]
         return test_data
-    
-    def __build_predict(self):
-        """
-        return:
-            dict: {user: [items]}
-        """
-        predict_data = {}
-        for i, item in enumerate(self.predictItem):
-            user = self.predictUser[i]
-            if predict_data.get(user):
-                predict_data[user].append(item)
-            else:
-                predict_data[user] = [item]
-        return predict_data
 
     def getUserItemFeedback(self, users, items):
         """
