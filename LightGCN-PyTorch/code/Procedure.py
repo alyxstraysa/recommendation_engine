@@ -180,4 +180,17 @@ def Infer(dataset, Recmodel, userID) -> np.array:
         _, rating_K = torch.topk(rating, k=max_K)
         rating = rating.cpu().numpy()
         print(rating_K)
-        return rating_K
+
+        #anime dict
+        anime_dict = {}
+        with open("../data/anime/anime.txt") as f:
+            next(f)
+
+            for line in f.readlines():
+                    lineModified = line.split(" ")
+                    anime, animeID = lineModified[0].strip('\n'), lineModified[1].strip('\n')
+                    anime_dict[animeID] = anime
+
+        anime_predictions = [anime_dict[str(rating)] for rating in rating_K]
+
+        return anime_predictions
