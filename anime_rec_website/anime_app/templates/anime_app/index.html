@@ -53,9 +53,14 @@ img {margin-bottom: -7px}
 <div class="w3-row" id="myGrid" style="margin-bottom:128px">
   {% block content %}
   <div class="text-center">
-    <input>
-      <a href='/anime_rec/12'><button type="button">Find Recs!</button></a>
-    </input>
+    <form action="{% url 'anime_view' %}" method="post">
+      {% csrf_token %}
+      {% comment %} <input>
+        <a href='/anime_rec/12'><button type="button">Find Recs</button></a>
+      </input> {% endcomment %}
+      <input id="mal_username" name="mal_username" type="text" placeholder="MAL username..."></br></br>
+      <input class="btn btn-primary" type="submit" value="submit">
+    </form>
   </div>
   {% endblock %}
 </div>

@@ -24,3 +24,8 @@ def user_rec(request, user_id):
         context['names'].append(anime_name)
         context['images'].append(anime_image)
     return render(request, 'anime_app/user_rec.html', context)
+
+def anime_view(request):
+    context = {}
+    print("Requesting information for {mal_un}".format(mal_un = request.POST.mal_username))
+    return render(request, 'anime_app/user_rec.html', context)
