@@ -29,4 +29,4 @@ with open(r'./LightGCN-PyTorch/data/anime/fulltrain.txt', 'r') as file:
                 f.write(str(userid) + " " + str(train_items) + '\n')
             
             with open("test.txt", "a+") as f:
-                f.write(str(userid) + " " + str(train_items) + '\n')
+                f.write(str(userid) + " " + str(test_items) + '\n')
