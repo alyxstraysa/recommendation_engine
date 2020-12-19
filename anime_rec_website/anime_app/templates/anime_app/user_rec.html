@@ -34,13 +34,19 @@
 
                             <div class="col-md-4 mb-3">
                                 <div class="card">
+                                    {% if images.1 != '' and names.1 != '' %}
                                     <img class="img-fluid" alt="100%x280" src={{images.1}}>
                                     <div class="card-body">
                                         <h4 class="card-title">{{names.1}}</h4>
                                         <p class="card-text">Anime Description</p>
-
                                     </div>
-
+                                    {% else %}
+                                    <img class="img-fluid" alt="100%x280" src={{images.1}}>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Test</h4>
+                                        <p class="card-text">Anime Description</p>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
