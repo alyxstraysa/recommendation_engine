@@ -2,7 +2,7 @@ import math
 import random
 import numpy as np
 
-with open('fulltrain.txt', 'r') as file:
+with open(r'./LightGCN-PyTorch/data/anime/fulltrain.txt', 'r') as file:
     for line in file.readlines():
         lineModified = line.replace("\n", " ").strip().split(" ")
 
