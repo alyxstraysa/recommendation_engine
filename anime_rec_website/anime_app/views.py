@@ -3,9 +3,18 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from .models import Anime_User
 from .mal_retriever import get_Anime_Info
-from .urls import getRemappedAnime
 
-
+def getRemappedAnime(user_animes):
+    #Returns the list of remapped anime IDS
+    output_list = []
+    for anime_id in user_animes:
+        try:
+            output_list.append(anime_dict[str(anime_id)])
+        except:
+            pass
+    
+    return output_list
+    
 # Create your views here.
 
 def index(request):

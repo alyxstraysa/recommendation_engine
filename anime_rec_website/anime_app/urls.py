@@ -4,18 +4,6 @@ import requests
 
 ANIME_DICT = {}
 USER_ANIMES = {}
-
-def getRemappedAnime(user_animes):
-    #Returns the list of remapped anime IDS
-    output_list = []
-    for anime_id in user_animes:
-        try:
-            output_list.append(anime_dict[str(anime_id)])
-        except:
-            pass
-    
-    return output_list
-    
     
 def setUp():
     with open("./LightGCN-PyTorch/data/anime/anime.txt") as f:
