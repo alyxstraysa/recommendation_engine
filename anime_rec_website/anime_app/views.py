@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from .models import Anime_User
 from .mal_retriever import get_Anime_Info
+import time
 
 def getRemappedAnime(user_animes):
     #Returns the list of remapped anime IDS
@@ -34,19 +35,26 @@ def user_rec(request, user_id):
     anime_list = []
     for anime in req_json['anime']:
         anime_list.append(anime['mal_id'])
-
+    print(anime_list)
     user_remap_animes = getRemappedAnime(anime_list)
     
     
-
-    recommendations = [39617,39617,39617,39617,39617,39617,39617,39617,39617]
-    for anime_ID in recommendations:
-        anime_name, anime_image = get_Anime_Info(anime_ID)
-        context['names'].append('')
-        context['images'].append(anime_image)
     return render(request, 'anime_app/user_rec.html', context)
 
 def anime_view(request):
-    context = {}
-    print("Requesting information for {mal_un}".format(mal_un = request.POST.get('mal_username', '')))
+    context = {'mal_un': request.POST.get('mal_username', ''),
+               'user_id': None,
+               'names': [],
+               'images': []
+               }
+
+    recommendations = [39617,9919,1818,1575,2025,270,1604,339,10798]
+    for anime_ID in recommendations:
+        time.sleep(4)
+        anime_name, anime_image = get_Anime_Info(anime_ID)
+        print(anime_name, anime_image)
+        context['names'].append(anime_name)
+        context['images'].append(anime_image)
+
+    print("Requesting information for {mal_un}".format(mal_un = context['mal_un']))
     return render(request, 'anime_app/user_rec.html', context)

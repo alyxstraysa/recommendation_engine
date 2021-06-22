@@ -16,22 +16,15 @@ def get_PictureURL(anime_ID):
         return 'N/A'
 
 def get_Anime_Info(anime_ID):
-    url="https://myanimelist.net/anime/{}/".format(anime_ID)
+    url="https://api.jikan.moe/v3/anime/{anime_id}/".format(anime_id = anime_ID)
 
-    # Make a GET request to fetch the raw HTML content
-    html_content = requests.get(url).text
+    r = requests.get(url)
+    anime = r.json()
+    print(anime)
+    anime_name = anime['title']
+    #mal_id = anime['mal_id']
+    image_source = anime['image_url']
 
-    # Parse the html content
-    soup = BeautifulSoup(html_content, "html.parser")
-    #print(soup.prettify()) # print the parsed data of html
-    anime_name = soup.title.text.replace("- MyAnimeList.net", "").strip()
-    tags=soup.findAll('img', alt=True)
-    image_source = None
-    for tag in tags:
-        if anime_name in tag['alt']:
-            image_source = tag['data-src']
+    #todo return summary
+
     return anime_name, image_source
-# if __name__ == '__main__':
-#     #print(get_PictureURL(40455))
-#     anime_name, image_source = get_Anime_Info(39617)
-#     print(anime_name, image_source)
