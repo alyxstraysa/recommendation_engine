@@ -25,6 +25,10 @@ def get_Anime_Info(anime_ID):
     #mal_id = anime['mal_id']
     image_source = anime['image_url']
 
+    r2 = requests.get("https://myanimelist.net/anime/{anime_ID}/".format(anime_ID=anime_ID))
+    soup = BeautifulSoup(r2.content, features='html.parser')
+    synopsis = soup.find('p', itemprop="description").get_text()
+
     #todo return summary
 
-    return anime_name, image_source
+    return anime_name, image_source, synopsis
