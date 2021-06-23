@@ -160,7 +160,7 @@ def Infer(dataset, Recmodel, user):
     dataset: utils.BasicDataset
     testDict: dict = dataset.testDict
     Recmodel: model.LightGCN
-    user: string = userid
+    user: user = user
     # eval mode with no dropout
     Recmodel = Recmodel.eval()
     max_K = max(world.topks)

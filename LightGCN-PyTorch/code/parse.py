@@ -44,4 +44,5 @@ def parse_args():
     parser.add_argument('--seed', type=int, default=2020, help='random seed')
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [mf, lgn]')
     parser.add_argument('--mode', type=str, default='train', help='whether to train or infer')
+    parser.add_argument('--inferuser', type=int, default=5373, help='infer on user')
     return parser.parse_args()

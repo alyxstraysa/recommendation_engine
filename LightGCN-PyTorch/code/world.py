@@ -16,7 +16,7 @@ import multiprocessing
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 args = parse_args()
 
-ROOT_PATH = "/content/recommendation_engine/LightGCN-PyTorch"
+ROOT_PATH = "C:\\Users\\vng\\Documents\\GitHub\\recommendation_engine\\LightGCN-PyTorch"
 CODE_PATH = join(ROOT_PATH, 'code')
 DATA_PATH = join(ROOT_PATH, 'data')
 BOARD_PATH = join(CODE_PATH, 'runs')
@@ -47,13 +47,14 @@ config['pretrain'] = args.pretrain
 config['A_split'] = False
 config['bigdata'] = False
 config['mode'] = args.mode
+config['inferuser'] = args.inferuser
 
 GPU = torch.cuda.is_available()
 device = torch.device('cuda' if GPU else "cpu")
 CORES = multiprocessing.cpu_count() // 2
 seed = args.seed
 
-dataset = args.dataset
+dataset = 'anime'
 model_name = args.model
 if dataset not in all_dataset:
     raise NotImplementedError(f"Haven't supported {dataset} yet!, try {all_dataset}")

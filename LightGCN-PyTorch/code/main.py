@@ -51,6 +51,6 @@ if world.config['mode'] == 'train':
         pass
 elif world.config['mode'] == 'infer':
     print("Inferring on predict:")
-    Procedure.Infer(dataset, Recmodel, 5373)
+    Procedure.Infer(dataset, Recmodel, world.config['inferuser'])
 else:
     print("Invalid mode selected!")
